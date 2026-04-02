@@ -1,0 +1,178 @@
+<div class="auth-wrapper">
+
+  <!-- LEFT: FORM PANEL -->
+  <div class="form-panel">
+
+    <div class="brand">
+      <mat-icon class="brand-icon">account_balance</mat-icon>
+      <span class="brand-name">NexaBank</span>
+    </div>
+
+    <h1 class="heading">{{ isLoginMode ? 'Welcome back' : 'Create account' }}</h1>
+    <p class="sub-heading">
+      {{ isLoginMode ? 'Sign in to your account' : 'Open your free banking account today' }}
+    </p>
+
+    <!-- ════ LOGIN FORM ════ -->
+    <form *ngIf="isLoginMode" [formGroup]="loginForm" novalidate>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="userName" placeholder="Enter your username" />
+        <mat-icon matPrefix>alternate_email</mat-icon>
+        <mat-error *ngIf="loginForm.get('userName')?.hasError('required')">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'"
+               formControlName="password" placeholder="Min 8 characters" />
+        <mat-icon matPrefix>lock_outline</mat-icon>
+        <button mat-icon-button matSuffix type="button"
+                (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+          Minimum 8 characters
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" class="submit-btn"
+              (click)="onLogin()" [disabled]="loginForm.invalid || isSubmitting">
+        <mat-spinner *ngIf="isSubmitting" diameter="18"></mat-spinner>
+        <span>{{ isSubmitting ? 'Signing in…' : 'Sign in' }}</span>
+      </button>
+
+    </form>
+
+    <!-- ════ REGISTER FORM ════ -->
+    <form *ngIf="!isLoginMode" [formGroup]="registerForm" novalidate>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Full name</mat-label>
+        <input matInput formControlName="fullName" />
+        <mat-icon matPrefix>person_outline</mat-icon>
+        <mat-error *ngIf="registerForm.get('fullName')?.hasError('required')">Required</mat-error>
+        <mat-error *ngIf="registerForm.get('fullName')?.hasError('minlength')">Min 3 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="userName" />
+        <mat-icon matPrefix>alternate_email</mat-icon>
+        <mat-error *ngIf="registerForm.get('userName')?.hasError('required')">Required</mat-error>
+        <mat-error *ngIf="registerForm.get('userName')?.hasError('minlength')">Min 3 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email address</mat-label>
+        <input matInput type="email" formControlName="emailId" />
+        <mat-icon matPrefix>mail_outline</mat-icon>
+        <mat-error *ngIf="registerForm.get('emailId')?.hasError('required')">Required</mat-error>
+        <mat-error *ngIf="registerForm.get('emailId')?.hasError('email')">Invalid email</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'"
+               formControlName="password" />
+        <mat-icon matPrefix>lock_outline</mat-icon>
+        <button mat-icon-button matSuffix type="button"
+                (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="registerForm.get('password')?.hasError('required')">Required</mat-error>
+        <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">Min 8 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirm password</mat-label>
+        <input matInput [type]="hideConfirmPass ? 'password' : 'text'"
+               formControlName="confirmPassword" />
+        <mat-icon matPrefix>lock_outline</mat-icon>
+        <button mat-icon-button matSuffix type="button"
+                (click)="hideConfirmPass = !hideConfirmPass">
+          <mat-icon>{{ hideConfirmPass ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">Required</mat-error>
+        <mat-error *ngIf="registerForm.hasError('passwordMismatch') &&
+                          registerForm.get('confirmPassword')?.touched">
+          Passwords do not match
+        </mat-error>
+      </mat-form-field>
+
+      <div class="terms-row">
+        <mat-checkbox formControlName="terms" color="primary">
+          I agree to the <a href="#" class="link">Terms</a> and
+          <a href="#" class="link">Privacy Policy</a>
+        </mat-checkbox>
+        <mat-error class="terms-error"
+          *ngIf="registerForm.get('terms')?.invalid && registerForm.get('terms')?.touched">
+          You must accept the terms
+        </mat-error>
+      </div>
+
+      <!-- Role selector -->
+      <div class="role-btn-group">
+        <button type="button"
+                [ngClass]="selectedRole === 'customer' ? 'btn-success' : 'btn-warning'"
+                (click)="setRole('customer')">
+          <mat-icon>person</mat-icon> I am Customer
+        </button>
+        <button type="button"
+                [ngClass]="selectedRole === 'banker' ? 'btn-success' : 'btn-warning'"
+                (click)="setRole('banker')">
+          <mat-icon>account_balance</mat-icon> I am Banker
+        </button>
+      </div>
+
+      <button mat-flat-button color="primary" class="submit-btn"
+              (click)="onRegister()"
+              [disabled]="registerForm.invalid || !selectedRole || isSubmitting">
+        <mat-spinner *ngIf="isSubmitting" diameter="18"></mat-spinner>
+        <span>{{ isSubmitting ? 'Creating account…' : 'Register' }}</span>
+      </button>
+
+    </form>
+
+    <!-- Toggle link -->
+    <p class="toggle-text">
+      <ng-container *ngIf="isLoginMode">
+        Don't have an account?
+        <button class="toggle-btn link" type="button" (click)="toggleMode()">
+          Sign up for free
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!isLoginMode">
+        Already registered?
+        <button class="toggle-btn link" type="button" (click)="toggleMode()">
+          Sign in here
+        </button>
+      </ng-container>
+    </p>
+
+  </div>
+
+  <!-- RIGHT: IMAGE PANEL -->
+  <div class="image-panel">
+    <img
+      src="https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?w=900&auto=format&fit=crop&q=80"
+      alt="Bank" class="bank-image" />
+    <div class="overlay">
+      <mat-icon class="shield-icon">verified_user</mat-icon>
+      <h2 class="overlay-title">Secure &amp; Trusted Banking</h2>
+      <p class="overlay-sub">256-bit encryption · FDIC insured · 24/7 support</p>
+      <div class="badges">
+        <span class="badge"><mat-icon>lock</mat-icon> SSL Secured</span>
+        <span class="badge"><mat-icon>security</mat-icon> Bank-Grade</span>
+        <span class="badge"><mat-icon>phonelink_lock</mat-icon> 2FA Ready</span>
+      </div>
+    </div>
+  </div>
+
+</div>

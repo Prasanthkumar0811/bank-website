@@ -1,59 +1,132 @@
-# Bankwebsite
+# NexaBank — Angular 19 Banking Web Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
+A full-featured banking web application built with Angular 19, Angular Material, and Bootstrap 5. Supports two roles — **Customer** and **Banker** — with role-based access control, loan application management, and a responsive UI.
 
-## Development server
+---
 
-To start a local development server, run:
+## Features
+
+### Customer
+- Register and log in as a Customer
+- Apply for a loan with personal, financial, and existing loan details
+- View the status of their own loan applications (Pending / Approved / Rejected)
+
+### Banker
+- Register and log in as a Banker
+- View all loan applications submitted by customers
+- Inspect full application details via a dialog modal
+
+---
+
+## Tech Stack
+
+| Technology | Version |
+|---|---|
+| Angular | 19.2 |
+| Angular Material | 19.2 |
+| Bootstrap | 5.3 |
+| RxJS | 7.8 |
+| TypeScript | 5.7 |
+
+---
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── core/
+│   │   ├── guards/        # authGuard, noGuard
+│   │   ├── models/        # auth.model.ts, loan.model.ts
+│   │   └── services/      # authservice.service.ts
+│   ├── features/
+│   │   ├── home/          # Landing page
+│   │   ├── auth/          # Login & Register
+│   │   ├── apply-loan/    # Loan application form
+│   │   └── applications/  # View applications + dialog
+│   ├── shared/
+│   │   └── component/navbar/
+│   ├── app.routes.ts
+│   └── app.config.ts
+└── environments/
+    ├── environment.ts       # Development
+    └── environment.prod.ts  # Production
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js >= 18
+- Angular CLI >= 19
+
+```bash
+npm install -g @angular/cli
+```
+
+### Installation
+
+```bash
+git clone https://github.com/your-username/bankwebsite.git
+cd bankwebsite
+npm install
+```
+
+### Run Development Server
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200`
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### Build for Production
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Output is in the `dist/bankwebsite/` folder.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Routes
 
-```bash
-ng test
-```
+| Path | Access | Description |
+|---|---|---|
+| `/home` | Public | Landing page |
+| `/register` | Guest only | Login / Register toggle |
+| `/apply-loan` | Customer only | Loan application form |
+| `/applications` | Logged in | View loan applications |
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## Environment Configuration
 
-```bash
-ng e2e
-```
+API base URL is configured via environment files:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- `src/environments/environment.ts` — development
+- `src/environments/environment.prod.ts` — production
 
-## Additional Resources
+To point to a different API, update `apiUrl` in those files.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## Backend API
+
+This project connects to a shared demo API at `https://api.freeprojectapi.com`.
+
+Key endpoints used:
+- `POST /api/BankLoan/login`
+- `POST /api/BankLoan/RegisterCustomer`
+- `POST /api/BankLoan/RegisterAsBankUser`
+- `POST /api/BankLoan/AddNewApplication`
+- `GET  /api/BankLoan/GetAllApplications`
+- `GET  /api/BankLoan/GetMyApplications?customerId={id}`
+
+---
+
+## License
+
+This project is for educational purposes.

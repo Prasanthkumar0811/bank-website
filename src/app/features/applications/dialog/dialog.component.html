@@ -1,0 +1,26 @@
+<div class="dialog-header">
+      <h2>Application Details</h2>
+      <button mat-icon-button (click)="ref.close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="dialog-body">
+      <div class="detail-row" *ngFor="let item of fields">
+        <span class="label">{{ item.label }}</span>
+        <span class="value">{{ data[item.key] || '—' }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="label">Status</span>
+        <span class="status-badge"
+          [ngClass]="{
+            'status-approve': data.applicationStatus === 'Approve',
+            'status-reject':  data.applicationStatus === 'Reject',
+            'status-pending': data.applicationStatus !== 'Approve' &&
+                              data.applicationStatus !== 'Reject'
+          }">
+          {{ data.applicationStatus }}
+        </span>
+      </div>
+    </div>

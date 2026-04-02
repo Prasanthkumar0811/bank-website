@@ -1,0 +1,68 @@
+<div class="page-wrapper">
+
+  <h1 class="page-title">
+    {{ loggedUser.role === 'Customer' ? 'My Applications' : 'All Applications' }}
+  </h1>
+  <p class="page-sub">
+    {{ loggedUser.role === 'Customer'
+        ? 'Track your submitted loan applications'
+        : 'View and manage all customer applications' }}
+  </p>
+
+  <!-- Loading -->
+  <div class="loading-wrap" *ngIf="isLoading">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <!-- Empty -->
+  <div class="empty-wrap" *ngIf="!isLoading && applications.length === 0">
+    <mat-icon>inbox</mat-icon>
+    <p>No applications found.</p>
+  </div>
+
+  <!-- Cards grid -->
+  <div class="row g-4" *ngIf="!isLoading && applications.length > 0">
+    <div class="col-lg-4 col-md-6" *ngFor="let app of applications">
+
+      <div class="app-card">
+
+        <!-- Top: avatar + name + status -->
+        <div class="card-top">
+          <div class="avatar">{{ app.fullName?.charAt(0) || app.panCard?.charAt(0) || '?' }}</div>
+          <div class="card-info">
+            <p class="name">{{ app.fullName }}</p>
+            <p class="email">{{ app.email }}</p>
+          </div>
+          <span [class]="'status-badge ' + getStatusClass(app.applicationStatus)">
+            {{ app.applicationStatus }}
+          </span>
+        </div>
+
+        <!-- 3 key details -->
+        <div class="card-details">
+          <div class="detail-item">
+            <mat-icon>badge</mat-icon>
+            <span>{{ app.panCard }}</span>
+          </div>
+          <div class="detail-item">
+            <mat-icon>work</mat-icon>
+            <span>{{ app.employmentStatus }}</span>
+          </div>
+          <div class="detail-item">
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ app.dateApplied | date: 'dd MMM yyyy' }}</span>
+          </div>
+        </div>
+
+        <!-- View Details -->
+        <button mat-stroked-button color="primary"
+                class="view-btn" (click)="openDialog(app)">
+          <mat-icon>visibility</mat-icon> View Details
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

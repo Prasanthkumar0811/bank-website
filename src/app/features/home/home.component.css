@@ -1,0 +1,42 @@
+.hero-section { background: #f4f7fc; padding: 5rem 0 3rem; }
+.min-vh-hero  { min-height: 80vh; }
+.hero-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: #185fa5; margin-bottom: 1rem; }
+.hero-heading { font-size: 48px; font-weight: 800; color: #0d1b2a; line-height: 1.15; margin-bottom: 1.25rem; }
+.text-highlight { color: #185fa5; }
+.hero-sub { font-size: 16px; color: #4b5563; line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary-custom { background: #185fa5; color: #fff; padding: 10px 24px; font-weight: 600; border-radius: 8px; border: none; text-decoration: none; &:hover { background: #0c447c; color: #fff; } }
+.btn-outline-custom { border: 2px solid #185fa5; color: #185fa5; padding: 10px 24px; font-weight: 600; border-radius: 8px; background: transparent; text-decoration: none; &:hover { background: #185fa5; color: #fff; } }
+.hero-image-wrap { display: flex; justify-content: center; padding: 2rem 0; }
+.hero-img { width: 100%; max-width: 520px; border-radius: 16px; object-fit: cover; box-shadow: 0 24px 64px rgba(24,95,165,0.15); }
+
+.stats-bar { background: #185fa5; padding: 2.5rem 0; }
+.stat-item  { padding: 1rem; }
+.stat-value { font-size: 32px; font-weight: 800; color: #fff; margin: 0; }
+.stat-label { font-size: 13px; color: #b5d4f4; margin: 0; font-weight: 500; }
+
+.services-section { padding: 5rem 0; background: #fff; }
+.section-header   { text-align: center; margin-bottom: 3rem; }
+.section-eyebrow  { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: #185fa5; margin-bottom: 0.5rem; }
+.section-title    { font-size: 34px; font-weight: 800; color: #0d1b2a; margin: 0 0 1rem; }
+.title-underline  { width: 56px; height: 4px; background: #185fa5; margin: 0 auto; border-radius: 2px; }
+
+.service-card { padding: 2rem; border: 1px solid #e5e7eb; border-radius: 16px; height: 100%; transition: all 0.25s ease; background: #fff; &:hover { border-color: #185fa5; box-shadow: 0 12px 40px rgba(24,95,165,0.1); transform: translateY(-4px); } }
+.card-icon-wrap { width: 52px; height: 52px; background: #e6f1fb; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; mat-icon { color: #185fa5; font-size: 26px; height: 26px; width: 26px; } }
+.card-title { font-size: 17px; font-weight: 700; color: #0d1b2a; margin-bottom: 0.75rem; }
+.card-desc  { font-size: 14px; color: #6b7280; line-height: 1.7; margin-bottom: 1.25rem; }
+.card-link  { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: #185fa5; text-decoration: none; .link-arrow { font-size: 16px; height: 16px; width: 16px; transition: transform 0.2s; } &:hover .link-arrow { transform: translateX(4px); } }
+
+.cta-section  { background: #0d1b2a; padding: 5rem 0; }
+.cta-heading  { font-size: 34px; font-weight: 800; color: #fff; margin-bottom: 1rem; }
+.cta-sub      { font-size: 16px; color: #9ca3af; margin-bottom: 2rem; }
+.btn-cta      { background: #185fa5; color: #fff; padding: 12px 32px; font-size: 15px; font-weight: 700; border-radius: 8px; border: none; text-decoration: none; &:hover { background: #0c447c; color: #fff; } }
+
+.footer           { background: #0d1b2a; padding: 4rem 0 2rem; }
+.footer-brand     { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 1rem; mat-icon { color: #185fa5; font-size: 28px; } }
+.footer-desc      { font-size: 13px; color: #6b7280; line-height: 1.7; max-width: 280px; }
+.footer-social    { display: flex; gap: 12px; margin-top: 1.25rem; mat-icon { color: #6b7280; cursor: pointer; transition: color 0.2s; &:hover { color: #185fa5; } } }
+.footer-col-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 1.25rem; }
+.footer-links     { list-style: none; padding: 0; margin: 0; li { margin-bottom: 0.6rem; } a { font-size: 13px; color: #6b7280; text-decoration: none; transition: color 0.2s; &:hover { color: #fff; } } }
+.footer-divider   { border-color: #1e2d3d; margin: 2rem 0 1rem; }
+.footer-copy      { font-size: 12px; color: #4b5563; text-align: center; margin: 0; }

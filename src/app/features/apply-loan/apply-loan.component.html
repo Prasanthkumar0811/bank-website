@@ -1,0 +1,180 @@
+<div class="page-wrapper">
+  <h1 class="page-title">Apply for a Loan</h1>
+  <p class="page-sub">Fill in your details. You can add multiple loan entries.</p>
+
+  <form [formGroup]="loanForm" novalidate>
+
+    <!-- SECTION 1: Personal Info -->
+    <h2 class="section-heading">Personal Information</h2>
+    <div class="row g-3">
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Full name</mat-label>
+          <input matInput formControlName="fullName" />
+          <mat-error *ngIf="loanForm.get('fullName')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>PAN Card</mat-label>
+          <input matInput formControlName="panCard" placeholder="e.g. ABCDE1234F" />
+          <mat-error *ngIf="loanForm.get('panCard')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="dob" formControlName="dateOfBirth" />
+          <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+          <mat-datepicker #dob></mat-datepicker>
+          <mat-error *ngIf="loanForm.get('dateOfBirth')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+          <mat-error *ngIf="loanForm.get('email')?.hasError('required')">Required</mat-error>
+          <mat-error *ngIf="loanForm.get('email')?.hasError('email')">Invalid email</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phone" />
+          <mat-error *ngIf="loanForm.get('phone')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Annual Income</mat-label>
+          <input matInput type="number" formControlName="annualIncome" />
+          <mat-error *ngIf="loanForm.get('annualIncome')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Employment Status</mat-label>
+          <mat-select formControlName="employmentStatus">
+            <mat-option *ngFor="let opt of employmentOptions" [value]="opt">{{ opt }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="loanForm.get('employmentStatus')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Credit Score</mat-label>
+          <input matInput type="number" formControlName="creditScore" />
+          <mat-error *ngIf="loanForm.get('creditScore')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Address</mat-label>
+          <textarea matInput formControlName="address" rows="2"></textarea>
+          <mat-error *ngIf="loanForm.get('address')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" />
+          <mat-error *ngIf="loanForm.get('city')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>State</mat-label>
+          <input matInput formControlName="state" />
+          <mat-error *ngIf="loanForm.get('state')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Zip Code</mat-label>
+          <input matInput formControlName="zipCode" />
+          <mat-error *ngIf="loanForm.get('zipCode')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Assets</mat-label>
+          <input matInput formControlName="assets" placeholder="e.g. House, Car" />
+          <mat-error *ngIf="loanForm.get('assets')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <mat-divider class="divider"></mat-divider>
+
+    <!-- SECTION 2: Loans FormArray -->
+    <div class="loans-header">
+      <h2 class="section-heading">Loan Details</h2>
+      <button mat-stroked-button color="primary" type="button" (click)="addLoan()">
+        <mat-icon>add</mat-icon> Add Loan
+      </button>
+    </div>
+
+    <div formArrayName="loans">
+      <div *ngFor="let loan of loans.controls; let i = index"
+           [formGroupName]="i" class="loan-row">
+
+        <div class="loan-row-header">
+          <span class="loan-label">Loan {{ i + 1 }}</span>
+          <button mat-icon-button color="warn" type="button"
+                  (click)="removeLoan(i)" [disabled]="loans.length === 1">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Bank Name</mat-label>
+              <input matInput formControlName="bankName" />
+              <mat-error *ngIf="loan.get('bankName')?.hasError('required')">Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Loan Amount</mat-label>
+              <input matInput type="number" formControlName="loanAmount" />
+              <mat-error *ngIf="loan.get('loanAmount')?.hasError('required')">Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>EMI</mat-label>
+              <input matInput type="number" formControlName="emi" />
+              <mat-error *ngIf="loan.get('emi')?.hasError('required')">Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button mat-flat-button color="primary" class="submit-btn"
+            type="button" (click)="onSubmit()"
+            [disabled]="loanForm.invalid || isSubmitting">
+      <mat-spinner *ngIf="isSubmitting" diameter="18"></mat-spinner>
+      <span>{{ isSubmitting ? 'Submitting…' : 'Submit Application' }}</span>
+    </button>
+
+  </form>
+</div>

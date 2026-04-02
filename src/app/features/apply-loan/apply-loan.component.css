@@ -1,0 +1,27 @@
+.page-wrapper  { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 3rem; }
+.page-title    { font-size: 26px; font-weight: 700; color: #0d1b2a; margin: 0 0 4px; }
+.page-sub      { font-size: 14px; color: #6b7280; margin: 0 0 2rem; }
+.section-heading { font-size: 18px; font-weight: 600; color: #185fa5; margin: 0 0 1rem; }
+.full-width    { width: 100%; }
+.divider       { margin: 2rem 0 !important; }
+
+.loans-header  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+
+.loan-row {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  background: #f8fafc;
+}
+.loan-row-header {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 0.75rem;
+}
+.loan-label { font-size: 14px; font-weight: 600; color: #185fa5; }
+
+.submit-btn {
+  margin-top: 1.5rem; padding: 12px 2rem;
+  font-size: 15px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+}

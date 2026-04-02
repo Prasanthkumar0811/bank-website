@@ -1,0 +1,47 @@
+
+<address class="navbar" >
+
+  <span class="brand" routerLink="/home">
+    <mat-icon>account_balance</mat-icon> NexaBank
+  </span>
+
+
+  <nav class="nav-links">
+
+    <a mat-button routerLink="/home" routerLinkActive="active-link">
+      <mat-icon>home</mat-icon> Home
+    </a>
+
+    <!-- not logged in -->
+    <a mat-button routerLink="/register" routerLinkActive="active-link"
+       *ngIf="!isLoggedIn">
+      <mat-icon>person_add</mat-icon> Register
+    </a>
+
+    <a mat-button routerLink="/apply-loan" routerLinkActive="active-link"
+       *ngIf="isLoggedIn && role === 'Customer'">
+      <mat-icon>person_add</mat-icon> Apply loan
+    </a>
+    <!-- customer only -->
+  
+
+    <!-- both roles -->
+    <a mat-button routerLink="/applications" routerLinkActive="active-link"
+       *ngIf="isLoggedIn">
+      <mat-icon>description</mat-icon> Applications
+    </a>
+
+    <span class="username" *ngIf="isLoggedIn">
+      <mat-icon>account_circle</mat-icon> Hi, {{ userName }}
+    </span>
+
+    <button mat-stroked-button class="logout-btn"
+            *ngIf="isLoggedIn" (click)="logOut()">
+      <mat-icon>logout</mat-icon> Logout
+       <mat-spinner *ngIf="isLoading" diameter="30"></mat-spinner>
+  <span class="spacer"></span>
+    </button>
+
+  </nav>
+
+</address>
