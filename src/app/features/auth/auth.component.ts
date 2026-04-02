@@ -81,10 +81,10 @@ export class AuthComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next:(res)=>{
         if (!res.result) {
-          this.isSubmitting=false
-    this.onsuccess(res.message || 'Login failed.');
-    return;
-  }
+          this.isSubmitting=false;
+          this.onsuccess(res.message || 'Login failed.');
+          return;
+        }
         const {userId, userName, role}=res.data
         this.authService.saveUser({userId,userName,role} as LoggedUser)
         this.onsuccess('Login Sucessful');
@@ -120,6 +120,7 @@ export class AuthComponent {
     api$.subscribe({
       next:(res)=>{
         if (!res.result) {
+    this.isSubmitting=false;
     this.onsuccess(res.message || 'Registration failed.');
     return;
   }
