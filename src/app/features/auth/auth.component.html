@@ -120,13 +120,13 @@
       <!-- Role selector -->
       <div class="role-btn-group">
         <button type="button"
-                [ngClass]="selectedRole === 'customer' ? 'btn-success' : 'btn-warning'"
-                (click)="setRole('customer')">
+                [ngClass]="selectedRole === 'Customer' ? 'btn-success' : 'btn-warning'"
+                (click)="setRole('Customer')">
           <mat-icon>person</mat-icon> I am Customer
         </button>
         <button type="button"
-                [ngClass]="selectedRole === 'banker' ? 'btn-success' : 'btn-warning'"
-                (click)="setRole('banker')">
+                [ngClass]="selectedRole === 'Banker' ? 'btn-success' : 'btn-warning'"
+                (click)="setRole('Banker')">
           <mat-icon>account_balance</mat-icon> I am Banker
         </button>
       </div>
